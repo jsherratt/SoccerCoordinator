@@ -4,30 +4,105 @@
 //------------------------------
 
 import UIKit
+import Foundation
 
 //------------------
 //MARK: Variables
 //------------------
 
-//Array of dictionaries for all 18 players
-var players = [["Name":"Joe Smith", "Height":"42", "Soccer Experience":"YES", "Guardian Name":"Jim and Jan Smith"],
-               ["Name":"Jill Tanner", "Height":"36", "Soccer Experience":"YES", "Guardian Name":"Clara Tanner"],
-               ["Name":"Bill Bon", "Height":"43", "Soccer Experience":"YES", "Guardian Name":"Sara and Jenny Bon"],
-               ["Name":"Eva Gordon", "Height":"45", "Soccer Experience":"NO", "Guardian Name":"Wendy and Mike Gordon"],
-               ["Name":"Matt Gill", "Height":"40", "Soccer Experience":"NO", "Guardian Name":"Charles and Sylvia Gill"],
-               ["Name":"Kimmy Stein", "Height":"41", "Soccer Experience":"NO", "Guardian Name":"Bill and Hillary Stein"],
-               ["Name":"Sammy Adams", "Height":"45", "Soccer Experience":"NO", "Guardian Name":"Jeff Adams"],
-               ["Name":"Karl Saygan", "Height":"42", "Soccer Experience":"YES", "Guardian Name":"Heather Bledsoe"],
-               ["Name":"Suzane Greenberg", "Height":"44", "Soccer Experience":"YES", "Guardian Name":"Henrietta Dumas"],
-               ["Name":"Sal Dali", "Height":"41", "Soccer Experience":"NO", "Guardian Name":"Gala Dali"],
-               ["Name":"Joe Kavalier", "Height":"39", "Soccer Experience":"NO", "Guardian Name":"Sam and Elaine Kavalier"],
-               ["Name":"Ben Finkelstein", "Height":"44", "Soccer Experience":"NO", "Guardian Name":"Aaron and Jill Finkelstein"],
-               ["Name":"Diego Soto", "Height":"41", "Soccer Experience":"YES", "Guardian Name":"Robin and Sarika Soto"],
-               ["Name":"Chloe Alaska", "Height":"47", "Soccer Experience":"NO", "Guardian Name":"David and Jamie Alaska"],
-               ["Name":"Arnold Willis", "Height":"43", "Soccer Experience":"NO", "Guardian Name":"Claire Willis"],
-               ["Name":"Phillip Helm", "Height":"44", "Soccer Experience":"YES", "Guardian Name":"Thomas Helm and Eva Jones"],
-               ["Name":"Les Clay", "Height":"42", "Soccer Experience":"YES", "Guardian Name":"Wynonna Brown"],
-               ["Name":"Herschel Krustofski", "Height":"45", "Soccer Experience":"YES", "Guardian Name":"Hyman and Rachel Krustofski"]]
+//Each player with their own collection of data
+let player1: [String:String] = ["Name": "Joe Smith",
+                             "HeightInInches": "42",
+                             "SoccerExperience": "YES",
+                             "GuardianNames": "Jim and Jan Smith"]
+
+let player2: [String:String] = ["Name": "Jill Tanner",
+                             "HeightInInches": "36",
+                             "SoccerExperience": "YES",
+                             "GuardianNames" : "Clara Tanner"]
+
+let player3: [String:String] = ["Name": "Bill Bon",
+                             "HeightInInches": "43",
+                             "SoccerExperience": "YES",
+                             "GuardianNames": "Sara and Jenny Bon"]
+
+let player4: [String:String] = ["Name": "Eva Gordon",
+                             "HeightInInches": "45",
+                             "SoccerExperience": "NO",
+                             "GuardianNames": "Wendy and Mike Gordon"]
+
+let player5: [String:String] = ["Name": "Matt Gill",
+                             "HeightInInches": "40",
+                             "SoccerExperience": "NO",
+                             "GuardianNames": "Charles and Sylvia Gill"]
+
+let player6: [String:String] = ["Name": "Kimmy Stein",
+                             "HeightInInches": "41",
+                             "SoccerExperience": "NO",
+                             "GuardianNames": "Bill and Hillary Stein"]
+
+let player7: [String:String] = ["Name": "Sammy Adams",
+                             "HeightInInches": "45",
+                             "SoccerExperience": "NO",
+                             "GuardianNames": "Jeff Adams"]
+
+let player8: [String:String] = ["Name": "Karl Saygan",
+                             "HeightInInches": "42",
+                             "SoccerExperience": "YES",
+                             "GuardianNames": "Heather Bledsoe"]
+
+let player9: [String:String] = ["Name": "Suzane Greenberg",
+                             "HeightInInches": "44",
+                             "SoccerExperience": "YES",
+                             "GuardianNames": "Henrietta Dumas"]
+
+let player10: [String:String] = ["Name": "Sal Dali",
+                              "HeightInInches": "41",
+                              "SoccerExperience": "NO",
+                              "GuardianNames": "Gala Dali"]
+
+let player11: [String:String] = ["Name": "Joe Kavalier",
+                              "HeightInInches": "39",
+                              "SoccerExperience": "NO",
+                              "GuardianNames": "Sam and Elaine Kavalier"]
+
+let player12: [String:String] = ["Name": "Ben Finkelstein",
+                              "HeightInInches": "44",
+                              "SoccerExperience": "NO",
+                              "GuardianNames": "Aaron and Jill Finkelstein"]
+
+let player13: [String:String] = ["Name": "Diego Soto",
+                              "HeightInInches": "41",
+                              "SoccerExperience": "YES",
+                              "GuardianNames": "Robin and Sarika Soto"]
+
+let player14: [String:String] = ["Name": "Chloe Alaska",
+                              "HeightInInches": "47",
+                              "SoccerExperience": "NO",
+                              "GuardianNames": "David and Jamie Alaska"]
+
+let player15: [String:String] = ["Name": "Arnold Willis",
+                              "HeightInInches": "43",
+                              "SoccerExperience": "NO",
+                              "GuardianNames": "Claire Willis"]
+
+let player16: [String:String] = ["Name": "Phillip Helm",
+                              "HeightInInches": "44",
+                              "SoccerExperience": "YES",
+                              "GuardianNames": "Thomas Helm and Eva Jones"]
+
+let player17: [String:String] = ["Name": "Les Clay",
+                              "HeightInInches": "42",
+                              "SoccerExperience": "YES",
+                              "GuardianNames": "Wynonna Brown"]
+
+let player18: [String:String] = ["Name": "Herschel Krustofski",
+                              "HeightInInches": "45",
+                              "SoccerExperience": "YES",
+                              "GuardianNames": "Hyman and Rachel Krustofski"]
+
+//Array of all the players
+var playerArray = [player1, player2, player3, player4, player5, player6, player7, player8, player9, player10, player11, player12, player13, player14, player15, player16, player17, player18]
 
 //Player team names
 let dragons = "Dragons"
@@ -60,18 +135,18 @@ func sortPlayersByExperience(playersArray: [[String:String]]) {
     //Iterate through the players array and check players experience. Add them to the appropriate array
     for player in playersArray {
         
-        if player["Soccer Experience"] == "YES" {
+        if player["SoccerExperience"] == "YES" {
             
             experiencedPlayers.append(player)
             
-        }else if player["Soccer Experience"] == "NO" {
+        }else if player["SoccerExperience"] == "NO" {
             
             inexperiencedPlayers.append(player)
         }
     }
 }
 
-sortPlayersByExperience(players)
+sortPlayersByExperience(playerArray)
 
 //Separate players into three teams keeping the number of experienced players equal in each team
 //The function takes a team array
@@ -94,6 +169,10 @@ func sortPlayersIntoTeams(typeOfPlayers typeOfPlayersArray: [[String:String]]) {
 sortPlayersIntoTeams(typeOfPlayers: experiencedPlayers)
 sortPlayersIntoTeams(typeOfPlayers: inexperiencedPlayers)
 
+//----------------------------
+//MARK: Letters to guardians
+//----------------------------
+
 //Sends a letter to the childs guardians letting them know what team their child was placed on and the practice schedule for the team.
 //The function takes 3 arguments. A team array, a team name and the practice details.
 func letterToGardians(team team:[[String:String]], teamName: String, practiceDetails: String) {
@@ -104,15 +183,15 @@ func letterToGardians(team team:[[String:String]], teamName: String, practiceDet
             
         case "Dragons":
             
-            print("Dear \(player["Guardian Name"]!), \n Congratulations your child, \(player["Name"]!) has been placed on the \(teamName). We are so excited to have them on the team.\n The practice schedule for the team is: \(practiceDetails).\n Best of luck this season!\n")
+            print("Dear \(player["GuardianNames"]!), \n Congratulations your child, \(player["Name"]!) has been placed on the \(teamName). We are so excited to have them on the team.\n The practice schedule for the team is: \(practiceDetails).\n Best of luck this season!\n")
             
         case "Raptors":
             
-            print("Dear \(player["Guardian Name"]!), \n Congratulations your child, \(player["Name"]!) has been placed on the \(teamName). We are so excited to have them on the team.\n The practice schedule for the team is: \(practiceDetails).\n Best of luck this season!\n")
+            print("Dear \(player["GuardianNames"]!), \n Congratulations your child, \(player["Name"]!) has been placed on the \(teamName). We are so excited to have them on the team.\n The practice schedule for the team is: \(practiceDetails).\n Best of luck this season!\n")
             
         case "Sharks":
             
-            print("Dear \(player["Guardian Name"]!), \n Congratulations your child, \(player["Name"]!) has been placed on the \(teamName). We are so excited to have them on the team.\n The practice schedule for the team is: \(practiceDetails).\n Best of luck this season!\n")
+            print("Dear \(player["GuardianNames"]!), \n Congratulations your child, \(player["Name"]!) has been placed on the \(teamName). We are so excited to have them on the team.\n The practice schedule for the team is: \(practiceDetails).\n Best of luck this season!\n")
             
         default: "No team found"
             
@@ -136,7 +215,7 @@ func calculateAverageHeight(team: [[String:String]]) -> Double{
     
     for player in team {
         
-        totalHeight = totalHeight + Double(player["Height"]!)!
+        totalHeight = totalHeight + Double(player["HeightInInches"]!)!
     }
     
     return totalHeight / Double(team.count)
