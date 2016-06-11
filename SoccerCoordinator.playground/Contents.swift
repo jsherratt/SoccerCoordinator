@@ -5,9 +5,9 @@
 
 import UIKit
 
-//-------------------
+//------------------
 //MARK: Variables
-//-------------------
+//------------------
 
 //Array of dictionaries for all 18 players
 var players = [["Name":"Joe Smith", "Height":"42", "Soccer Experience":"YES", "Guardian Name":"Jim and Jan Smith"],
@@ -50,10 +50,9 @@ var teamsArray = ["dragons","raptorsArray","sharksArray"]
 var experiencedPlayers:[[String:String]] = []
 var inexperiencedPlayers: [[String:String]] = []
 
-
-//---------------------------
+//----------------------------
 //MARK: Player sorting logic
-//---------------------------
+//----------------------------
 
 //Separate players based on experience
 func sortPlayersByExperience(playersArray: [[String:String]]) {
@@ -125,12 +124,44 @@ func letterToGardians(team team:[[String:String]], teamName: String, practiceDet
 //letterToGardians(team: raptorsArray, teamName: raptors, practiceDetails: raptorDetails)
 //letterToGardians(team: sharksArray, teamName: sharks, practiceDetails: sharkDetails)
 
+//---------------------
+//MARK: Extra Credit
+//---------------------
 
+//Logic to ensure that each team's average height is within 1.5 inch of the others as well as having each team contain the same number of experienced players.
 
+func calculateAverageHeight(team: [[String:String]]) -> Double{
+    
+    var totalHeight = 0.0
+    
+    for player in team {
+        
+        totalHeight = totalHeight + Double(player["Height"]!)!
+    }
+    
+    return totalHeight / Double(team.count)
+}
 
+calculateAverageHeight(dragonsArray)
+calculateAverageHeight(raptorsArray)
+calculateAverageHeight(sharksArray)
 
+func calculateDifferenceBetweenTeams(team1: Double, team2: Double) {
+    
+    var height = 0.0
+    
+    height = team1 - team2
+    
+    if height > 1.5 || height < 1.5 {
+        
+        print("Not in range")
+        
+    }else {
+        print("Within range")
+    }
+}
 
-
+calculateDifferenceBetweenTeams(calculateAverageHeight(dragonsArray), team2: calculateAverageHeight(raptorsArray))
 
 
 
