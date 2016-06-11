@@ -5,8 +5,9 @@
 
 import UIKit
 
-
-
+//-------------------
+//MARK: Variables
+//-------------------
 
 //Array of dictionaries for all 18 players
 var players = [["Name":"Joe Smith", "Height":"42", "Soccer Experience":"YES", "Guardian Name":"Jim and Jan Smith"],
@@ -29,26 +30,69 @@ var players = [["Name":"Joe Smith", "Height":"42", "Soccer Experience":"YES", "G
                ["Name":"Herschel Krustofski", "Height":"45", "Soccer Experience":"YES", "Guardian Name":"Hyman and Rachel Krustofski"]]
 
 //Player teams
-var dragons = [["":""]]
-var raptors = [["":""]]
-var sharks = [["":""]]
+var dragons: [[String:String]] = []
+var raptors: [[String:String]] = []
+var sharks: [[String:String]] = []
+var teamsArray = [dragons,raptors,sharks]
+var index = 0
 
 //Array for experienced players and other players
-var experiencedPlayers = [["":""]]
-var otherPlayers = [["":""]]
+var experiencedPlayers:[[String:String]] = []
+var inexperiencedPlayers: [[String:String]] = []
+
+
+//---------------------------
+//MARK: Player sorting logic
+//---------------------------
 
 //Separate players based on experience
 for player in players {
     
-    //If a player is experienced, add them to the experienced array
+    //Check players experience and add them to appropriate array
     if player["Soccer Experience"] == "YES" {
         
         experiencedPlayers.append(player)
         
     }else if player["Soccer Experience"] == "NO" {
         
-        otherPlayers.append(player)
+        inexperiencedPlayers.append(player)
     }
 }
 
-print(experiencedPlayers)
+//Separate players into three teams keeping the number of experienced players equal in each team
+//If the number of experienced and inexperienced players are not equal then two while loops would be needed
+while index < experiencedPlayers.count && index < inexperiencedPlayers.count {
+    
+    dragons.append(experiencedPlayers[index])
+    raptors.append(experiencedPlayers[index + 1])
+    sharks.append(experiencedPlayers[index + 2])
+    
+    dragons.append(inexperiencedPlayers[index])
+    raptors.append(inexperiencedPlayers[index + 1])
+    sharks.append(inexperiencedPlayers[index + 2])
+    
+    index = index + teamsArray.count
+}
+
+//Print letter to parents. Still working on this, not sure if the the best way as three for loops will be needed, one for each team.
+for player in dragons {
+    
+    let teamName = "Dragons"
+    let practiceDetails = "March 17, 1pm"
+    
+    print("Hi \(player["Guardian Name"]!), \(player["Name"]!) has been placed in the team \(teamName). The team will have practice on \(practiceDetails).")
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
