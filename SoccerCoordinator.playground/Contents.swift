@@ -29,14 +29,24 @@ var players = [["Name":"Joe Smith", "Height":"42", "Soccer Experience":"YES", "G
                ["Name":"Les Clay", "Height":"42", "Soccer Experience":"YES", "Guardian Name":"Wynonna Brown"],
                ["Name":"Herschel Krustofski", "Height":"45", "Soccer Experience":"YES", "Guardian Name":"Hyman and Rachel Krustofski"]]
 
-//Player teams
-var dragons: [[String:String]] = []
-var raptors: [[String:String]] = []
-var sharks: [[String:String]] = []
-var teamsArray = [dragons,raptors,sharks]
-var index = 0
+//Player team names
+let dragons = "Dragons"
+let raptors = "Raptors"
+let sharks = "Sharks"
 
-//Array for experienced players and other players
+//Practice details for each team
+let dragonDetails = "March 17, 1pm"
+let raptorDetails = "March 18, 1pm"
+let sharkDetails = "March 17, 3pm"
+
+
+//Player team arrays
+var dragonsArray: [[String:String]] = []
+var raptorsArray: [[String:String]] = []
+var sharksArray: [[String:String]] = []
+var teamsArray = ["dragons","raptorsArray","sharksArray"]
+
+//Array for experienced players and inexperienced players
 var experiencedPlayers:[[String:String]] = []
 var inexperiencedPlayers: [[String:String]] = []
 
@@ -46,42 +56,75 @@ var inexperiencedPlayers: [[String:String]] = []
 //---------------------------
 
 //Separate players based on experience
-for player in players {
+func sortPlayersByExperience(playersArray: [[String:String]]) {
     
-    //Check players experience and add them to appropriate array
-    if player["Soccer Experience"] == "YES" {
+    //Iterate through the players array and check players experience. Add them to the appropriate array
+    for player in playersArray {
         
-        experiencedPlayers.append(player)
-        
-    }else if player["Soccer Experience"] == "NO" {
-        
-        inexperiencedPlayers.append(player)
+        if player["Soccer Experience"] == "YES" {
+            
+            experiencedPlayers.append(player)
+            
+        }else if player["Soccer Experience"] == "NO" {
+            
+            inexperiencedPlayers.append(player)
+        }
     }
 }
 
+sortPlayersByExperience(players)
+
 //Separate players into three teams keeping the number of experienced players equal in each team
-//If the number of experienced and inexperienced players are not equal then two while loops would be needed
-while index < experiencedPlayers.count && index < inexperiencedPlayers.count {
+//The function takes a team array
+func sortPlayersIntoTeams(typeOfPlayers typeOfPlayersArray: [[String:String]]) {
     
-    dragons.append(experiencedPlayers[index])
-    raptors.append(experiencedPlayers[index + 1])
-    sharks.append(experiencedPlayers[index + 2])
+    var index = 0
     
-    dragons.append(inexperiencedPlayers[index])
-    raptors.append(inexperiencedPlayers[index + 1])
-    sharks.append(inexperiencedPlayers[index + 2])
-    
-    index = index + teamsArray.count
+    while index < typeOfPlayersArray.count {
+        
+        //Append a player to each team by incrementing index by 1. Then add the total number of teams to the index and repeat
+        //Append players at index 0,1,2. Add 0 + 3. Append players at index 3,4,5. Add 3 + 3. Append players at index 6,7,8.
+        dragonsArray.append(typeOfPlayersArray[index])
+        raptorsArray.append(typeOfPlayersArray[index + 1])
+        sharksArray.append(typeOfPlayersArray[index + 2])
+        
+        index = index + teamsArray.count
+    }
 }
 
-//Print letter to parents. Still working on this, not sure if the the best way as three for loops will be needed, one for each team.
-for player in dragons {
+sortPlayersIntoTeams(typeOfPlayers: experiencedPlayers)
+sortPlayersIntoTeams(typeOfPlayers: inexperiencedPlayers)
+
+//Sends a letter to the childs guardians letting them know what team their child was placed on and the practice schedule for the team.
+//The function takes 3 arguments. A team array, a team name and the practice details.
+func letterToGardians(team team:[[String:String]], teamName: String, practiceDetails: String) {
     
-    let teamName = "Dragons"
-    let practiceDetails = "March 17, 1pm"
-    
-    print("Hi \(player["Guardian Name"]!), \(player["Name"]!) has been placed in the team \(teamName). The team will have practice on \(practiceDetails).")
+    for player in team{
+        
+        switch(teamName){
+            
+        case "Dragons":
+            
+            print("Dear \(player["Guardian Name"]!), \n Congratulations your child, \(player["Name"]!) has been placed on the \(teamName). We are so excited to have them on the team.\n The practice schedule for the team is: \(practiceDetails).\n Best of luck this season!\n")
+            
+        case "Raptors":
+            
+            print("Dear \(player["Guardian Name"]!), \n Congratulations your child, \(player["Name"]!) has been placed on the \(teamName). We are so excited to have them on the team.\n The practice schedule for the team is: \(practiceDetails).\n Best of luck this season!\n")
+            
+        case "Sharks":
+            
+            print("Dear \(player["Guardian Name"]!), \n Congratulations your child, \(player["Name"]!) has been placed on the \(teamName). We are so excited to have them on the team.\n The practice schedule for the team is: \(practiceDetails).\n Best of luck this season!\n")
+            
+        default: "No team found"
+            
+        }
+    }
 }
+
+//letterToGardians(team: dragonsArray, teamName: dragons, practiceDetails: dragonDetails)
+//letterToGardians(team: raptorsArray, teamName: raptors, practiceDetails: raptorDetails)
+//letterToGardians(team: sharksArray, teamName: sharks, practiceDetails: sharkDetails)
+
 
 
 
