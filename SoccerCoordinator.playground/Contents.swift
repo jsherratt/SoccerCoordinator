@@ -105,69 +105,91 @@ let player18: [String:String] = ["Name": "Herschel Krustofski",
 var playerArray = [player1, player2, player3, player4, player5, player6, player7, player8, player9, player10, player11, player12, player13, player14, player15, player16, player17, player18]
 
 //Player team names
-let dragons = "Dragons"
-let raptors = "Raptors"
-let sharks = "Sharks"
+let teamDragons = "Dragons"
+let teamRaptors = "Raptors"
+let teamSharks = "Sharks"
 
 //Practice details for each team
-let dragonDetails = "March 17, 1pm"
-let raptorDetails = "March 18, 1pm"
-let sharkDetails = "March 17, 3pm"
+let teamDragonDetails = "March 17, 1pm"
+let teamRaptorDetails = "March 18, 1pm"
+let teamSharkDetails = "March 17, 3pm"
 
 
 //Player team arrays
-var dragonsArray: [[String:String]] = []
-var raptorsArray: [[String:String]] = []
-var sharksArray: [[String:String]] = []
+var teamDragonsArray: [[String:String]] = []
+var teamRaptorsArray: [[String:String]] = []
+var teamSharksArray: [[String:String]] = []
 var teamsArray = ["dragons","raptorsArray","sharksArray"]
 
-//Array for experienced players and inexperienced players
-var experiencedPlayers:[[String:String]] = []
-var inexperiencedPlayers: [[String:String]] = []
+//Player array sorted by height
+var heightSortedPlayerArray: [[String:String]]
+
+//Sorts the player array by height
+heightSortedPlayerArray = playerArray.sort() {
+    ($0 ["HeightInInches"] ) < ($1 ["HeightInInches"] )
+}
 
 //----------------------------
 //MARK: Player sorting logic
 //----------------------------
 
 //Separate players based on experience
-func sortPlayersByExperience(playersArray: [[String:String]]) {
+func sortPlayers(playersArray: [[String:String]]) {
+    
+    var index = 1
+    var index2 = 1
     
     //Iterate through the players array and check players experience. Add them to the appropriate array
-    for player in playersArray {
+    for player in heightSortedPlayerArray {
         
         if player["SoccerExperience"] == "YES" {
             
-            experiencedPlayers.append(player)
+            switch (index % 6) {
+                
+            case 1: teamSharksArray.append(player)
+                
+            case 2: teamDragonsArray.append(player)
+                
+            case 3: teamRaptorsArray.append(player)
+                
+            case 4: teamRaptorsArray.append(player)
+                
+            case 5: teamDragonsArray.append(player)
+                
+            case 0: teamSharksArray.append(player)
+                
+            default:
+                break
+            }
+            
+            index += 1
             
         }else if player["SoccerExperience"] == "NO" {
             
-            inexperiencedPlayers.append(player)
+            switch (index2 % 6) {
+                
+            case 1: teamRaptorsArray.append(player)
+                
+            case 2: teamDragonsArray.append(player)
+                
+            case 3: teamSharksArray.append(player)
+                
+            case 4: teamSharksArray.append(player)
+                
+            case 5: teamDragonsArray.append(player)
+                
+            case 0: teamRaptorsArray.append(player)
+                
+            default:
+                break
+            }
+            
+            index2 += 1
         }
     }
 }
 
-sortPlayersByExperience(playerArray)
-
-//Separate players into three teams keeping the number of experienced players equal in each team
-//The function takes a team array
-func sortPlayersIntoTeams(typeOfPlayers typeOfPlayersArray: [[String:String]]) {
-    
-    var index = 0
-    
-    while index < typeOfPlayersArray.count {
-        
-        //Append a player to each team by incrementing index by 1. Then add the total number of teams to the index and repeat
-        //Append players at index 0,1,2. Add 0 + 3. Append players at index 3,4,5. Add 3 + 3. Append players at index 6,7,8.
-        dragonsArray.append(typeOfPlayersArray[index])
-        raptorsArray.append(typeOfPlayersArray[index + 1])
-        sharksArray.append(typeOfPlayersArray[index + 2])
-        
-        index = index + teamsArray.count
-    }
-}
-
-sortPlayersIntoTeams(typeOfPlayers: experiencedPlayers)
-sortPlayersIntoTeams(typeOfPlayers: inexperiencedPlayers)
+sortPlayers(playerArray)
 
 //----------------------------
 //MARK: Letters to guardians
@@ -199,16 +221,17 @@ func letterToGardians(team team:[[String:String]], teamName: String, practiceDet
     }
 }
 
-//letterToGardians(team: dragonsArray, teamName: dragons, practiceDetails: dragonDetails)
-//letterToGardians(team: raptorsArray, teamName: raptors, practiceDetails: raptorDetails)
-//letterToGardians(team: sharksArray, teamName: sharks, practiceDetails: sharkDetails)
+letterToGardians(team: teamDragonsArray, teamName: teamDragons, practiceDetails: teamDragonDetails)
+letterToGardians(team: teamRaptorsArray, teamName: teamRaptors, practiceDetails: teamRaptorDetails)
+letterToGardians(team: teamSharksArray, teamName: teamSharks, practiceDetails: teamSharkDetails)
 
 //---------------------
 //MARK: Extra Credit
 //---------------------
 
-//Logic to ensure that each team's average height is within 1.5 inch of the others as well as having each team contain the same number of experienced players.
+//Logic to ensure that each team's average height is within 1.5 inch of the others as well as having each team contain the same number of experienced players. Some of the height logic is coupled with the sorting logic further up.
 
+//Calculates the average height of a team
 func calculateAverageHeight(team: [[String:String]]) -> Double{
     
     var totalHeight = 0.0
@@ -221,30 +244,33 @@ func calculateAverageHeight(team: [[String:String]]) -> Double{
     return totalHeight / Double(team.count)
 }
 
-calculateAverageHeight(dragonsArray)
-calculateAverageHeight(raptorsArray)
-calculateAverageHeight(sharksArray)
+calculateAverageHeight(teamDragonsArray)
+calculateAverageHeight(teamRaptorsArray)
+calculateAverageHeight(teamSharksArray)
 
-func calculateDifferenceBetweenTeams(team1: Double, team2: Double) {
+//Checks the height difference bettween two teams
+func calculateDifferenceBetweenTeams(team1: Double, team2: Double) -> Bool {
     
     var height = 0.0
+    var withinRange = false
     
     height = team1 - team2
     
-    if height > 1.5 || height < 1.5 {
+    if height > 1.5 || height < -1.5 {
         
-        print("Not in range")
+        withinRange = false
         
     }else {
-        print("Within range")
+
+        withinRange = true
     }
+    
+    return withinRange
 }
 
-calculateDifferenceBetweenTeams(calculateAverageHeight(dragonsArray), team2: calculateAverageHeight(raptorsArray))
-
-
-
-
+calculateDifferenceBetweenTeams(calculateAverageHeight(teamDragonsArray), team2: calculateAverageHeight(teamRaptorsArray))
+calculateDifferenceBetweenTeams(calculateAverageHeight(teamDragonsArray), team2: calculateAverageHeight(teamSharksArray))
+calculateDifferenceBetweenTeams(calculateAverageHeight(teamRaptorsArray), team2: calculateAverageHeight(teamSharksArray))
 
 
 
