@@ -125,9 +125,7 @@ var teamsArray = ["dragons","raptorsArray","sharksArray"]
 var heightSortedPlayerArray: [[String:String]]
 
 //Sorts the player array by height
-heightSortedPlayerArray = playerArray.sort() {
-    ($0 ["HeightInInches"] ) < ($1 ["HeightInInches"] )
-}
+heightSortedPlayerArray = playerArray.sorted { $0["HeightInInches"]! < $1["HeightInInches"]! }
 
 //----------------------------
 //MARK: Player sorting logic
@@ -189,7 +187,7 @@ func sortPlayers(playersArray: [[String:String]]) {
     }
 }
 
-sortPlayers(playerArray)
+sortPlayers(playersArray: playerArray)
 
 //----------------------------
 //MARK: Letters to guardians
@@ -197,7 +195,7 @@ sortPlayers(playerArray)
 
 //Sends a letter to the childs guardians letting them know what team their child was placed on and the practice schedule for the team.
 //The function takes 3 arguments. A team array, a team name and the practice details.
-func letterToGardians(team team:[[String:String]], teamName: String, practiceDetails: String) {
+func letterToGardians(team:[[String:String]], teamName: String, practiceDetails: String) {
     
     for player in team{
         
@@ -244,9 +242,9 @@ func calculateAverageHeight(team: [[String:String]]) -> Double{
     return totalHeight / Double(team.count)
 }
 
-calculateAverageHeight(teamDragonsArray)
-calculateAverageHeight(teamRaptorsArray)
-calculateAverageHeight(teamSharksArray)
+calculateAverageHeight(team: teamDragonsArray)
+calculateAverageHeight(team: teamRaptorsArray)
+calculateAverageHeight(team: teamSharksArray)
 
 //Checks the height difference bettween two teams
 func calculateDifferenceBetweenTeams(team1: Double, team2: Double) -> Bool {
@@ -268,9 +266,9 @@ func calculateDifferenceBetweenTeams(team1: Double, team2: Double) -> Bool {
     return withinRange
 }
 
-calculateDifferenceBetweenTeams(calculateAverageHeight(teamDragonsArray), team2: calculateAverageHeight(teamRaptorsArray))
-calculateDifferenceBetweenTeams(calculateAverageHeight(teamDragonsArray), team2: calculateAverageHeight(teamSharksArray))
-calculateDifferenceBetweenTeams(calculateAverageHeight(teamRaptorsArray), team2: calculateAverageHeight(teamSharksArray))
+calculateDifferenceBetweenTeams(team1: calculateAverageHeight(team: teamDragonsArray), team2: calculateAverageHeight(team: teamRaptorsArray))
+calculateDifferenceBetweenTeams(team1: calculateAverageHeight(team: teamDragonsArray), team2: calculateAverageHeight(team: teamSharksArray))
+calculateDifferenceBetweenTeams(team1: calculateAverageHeight(team: teamRaptorsArray), team2: calculateAverageHeight(team: teamSharksArray))
 
 
 
