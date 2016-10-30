@@ -187,6 +187,7 @@ func sortPlayers(playersArray: [[String:String]]) {
     }
 }
 
+//Sort player array
 sortPlayers(playersArray: playerArray)
 
 //----------------------------
